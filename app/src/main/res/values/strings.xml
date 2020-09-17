@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MarvelApp</string>
+    <string name="searchMovie">Search Character</string>
+    <string name="button_search">Search</string>
+</resources>
