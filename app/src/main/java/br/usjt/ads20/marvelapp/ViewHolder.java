@@ -5,7 +5,16 @@ import android.widget.TextView;
 
 public class ViewHolder {
     private ImageView characterPoster;
-    private TextView characterName, characterDetail;
+    private TextView characterName, categoryDetail, popularityDetail, descriptionDetail;
+
+    public ViewHolder(ImageView characterPoster, TextView characterName, TextView categoryDetail, TextView popularityDetail, TextView descriptionDetail) {
+        this.characterPoster = characterPoster;
+        this.characterName = characterName;
+        this.categoryDetail = categoryDetail;
+        this.popularityDetail = popularityDetail;
+        this.descriptionDetail = descriptionDetail;
+
+    }
 
     public ImageView getCharacterPoster() {
         return characterPoster;
@@ -23,17 +32,27 @@ public class ViewHolder {
         this.characterName = characterName;
     }
 
-    public TextView getCharacterDetail() {
-        return characterDetail;
+    public TextView getCategoryDetail() {
+        return categoryDetail;
     }
 
-    public void setCharacterDetail(TextView characterDetail) {
-        this.characterDetail = characterDetail;
+    public void setCategoryDetail(TextView categoryDetail) {
+        this.categoryDetail = categoryDetail;
     }
 
-    public ViewHolder(ImageView characterPoster, TextView characterName, TextView characterDetail) {
-        this.characterPoster = characterPoster;
-        this.characterName = characterName;
-        this.characterDetail = characterDetail;
+    public TextView getPopularityDetail() {
+        return popularityDetail;
+    }
+
+    public void setPopularityDetail(TextView popularityDetail) {
+        this.popularityDetail = popularityDetail;
+    }
+
+    public TextView getDescriptionDetail() {
+        return descriptionDetail;
+    }
+
+    public void setDescriptionDetail(TextView descriptionDetail) {
+        this.descriptionDetail = descriptionDetail;
     }
 }

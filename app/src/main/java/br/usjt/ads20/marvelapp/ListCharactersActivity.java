@@ -10,14 +10,13 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
-import java.util.ArrayList;
-import br.usjt.ads20.marvelapp.model.Character;
+import br.usjt.ads20.marvelapp.model.MarvelCharacter;
 
 import static br.usjt.ads20.marvelapp.model.Data.searchCharacters;
 
 public class ListCharactersActivity extends AppCompatActivity {
-    public static final String DESCRIPTION = "br.usjt.ads20.marvelapp.description";
-    Character[] characters;
+    public static final String CHARACTER = "br.usjt.ads20.marvelapp.description";
+    MarvelCharacter[] characters;
     private Activity activity;
 
     @Override
@@ -36,7 +35,7 @@ public class ListCharactersActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int index, long l) {
                 Intent itemClickedIntent = new Intent(activity, CharacterDetailActivity.class);
-                itemClickedIntent.putExtra(DESCRIPTION, characters[index].getName());
+                itemClickedIntent.putExtra(CHARACTER, characters[index]);
                 startActivity(itemClickedIntent);
             }
         });

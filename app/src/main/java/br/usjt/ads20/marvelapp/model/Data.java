@@ -3,21 +3,21 @@ package br.usjt.ads20.marvelapp.model;
 import java.util.ArrayList;
 
 public class Data {
-    public static Character[] searchCharacters(String key) {
-        ArrayList<Character> list = createCharacter();
+    public static MarvelCharacter[] searchCharacters(String key) {
+        ArrayList<MarvelCharacter> list = createCharacter();
 
         if (key == null || key.length() == 0) {
-            return list.toArray(new Character[0]);
+            return list.toArray(new MarvelCharacter[0]);
         }
         else {
-            ArrayList<Character> filter = new ArrayList<>();
-            for (Character character : list) {
+            ArrayList<MarvelCharacter> filter = new ArrayList<>();
+            for (MarvelCharacter character : list) {
                 String name = character.getName();
                 if (name.toUpperCase().contains(key.toUpperCase())) {
                     filter.add(character);
                 }
             }
-            return filter.toArray(new Character[0]);
+            return filter.toArray(new MarvelCharacter[0]);
         }
     }
 
@@ -49,11 +49,11 @@ public class Data {
         return list;
     }
     
-    public static ArrayList<Character> createCharacter() {
-        ArrayList<Character> list = new ArrayList<>();
-        Character character;
+    public static ArrayList<MarvelCharacter> createCharacter() {
+        ArrayList<MarvelCharacter> list = new ArrayList<>();
+        MarvelCharacter character;
 
-        character = new Character();
+        character = new MarvelCharacter();
         character.setName("Steve Rogers - Captain America");
         character.setDescription("America’s World War II Super-Soldier continues his fight in the present as an Avenger and untiring sentinel of liberty."
         );
@@ -63,7 +63,7 @@ public class Data {
         character.setCategory(Category.Hero);
         list.add(character);
 
-        character = new Character();
+        character = new MarvelCharacter();
         character.setName("Thanos");
         character.setDescription("Using the power of the Infinity Stones, Thanos believes he can ultimately save the universe by wiping out half of its population."
         );
@@ -73,7 +73,7 @@ public class Data {
         character.setCategory(Category.Villain);
         list.add(character);
 
-        character = new Character();
+        character = new MarvelCharacter();
         character.setName("Carol Danvers - Captain Marvel");
         character.setDescription("Near death, Carol Danvers was transformed into a powerful warrior for the Kree. Now, returning to Earth years later, she must remember her past in order to to prevent a full invasion by shapeshifting aliens, the Skrulls."
         );
@@ -83,7 +83,7 @@ public class Data {
         character.setCategory(Category.Hero);
         list.add(character);
 
-        character = new Character();
+        character = new MarvelCharacter();
         character.setName("Wade Wilson - Deadpool");
         character.setDescription("Wade Wilson was born in Canada, but grew up to become the least Canadian person ever. When it comes to the Merc with a Mouth, with great power comes no responsibility."
         );
@@ -93,7 +93,7 @@ public class Data {
         character.setCategory(Category.AntiHero);
         list.add(character);
 
-        character = new Character();
+        character = new MarvelCharacter();
         character.setName("T’Challa - Black Panther");
         character.setDescription("As the king of the African nation of Wakanda, T’Challa protects his people as the latest in a legacy line of Black Panther warriors."
         );

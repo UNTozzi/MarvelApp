@@ -1,5 +1,7 @@
 package br.usjt.ads20.marvelapp.model;
 
-public enum  Category {
+import java.io.Serializable;
+
+public enum  Category implements Serializable {
     Hero, Villain, Neutral, AntiHero, Unknown
 }

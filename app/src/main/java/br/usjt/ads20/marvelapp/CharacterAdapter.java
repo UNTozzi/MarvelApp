@@ -1,5 +1,6 @@
 package br.usjt.ads20.marvelapp;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -7,17 +8,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.SectionIndexer;
 import android.widget.TextView;
 
-import br.usjt.ads20.marvelapp.model.Character;
+import java.util.Hashtable;
 
-public class CharacterAdapter extends BaseAdapter {
-    private Character[] characters;
+import br.usjt.ads20.marvelapp.model.MarvelCharacter;
+
+public class CharacterAdapter extends BaseAdapter implements SectionIndexer {
+    private MarvelCharacter[] characters;
     private Context context;
+    private Object[] sectionHeaders;
+    private Hashtable<Integer, Integer> sectionForPositionMap;
+    private Hashtable<Integer, Integer> positionToSectionMap;
 
-    public CharacterAdapter(Context context, Character[] characters) {
+    public CharacterAdapter(Context context, MarvelCharacter[] characters) {
         this.characters = characters;
         this.context = context;
+        sectionHeaders = SectionIndexBuilder.buildSectionHeaders(characters);
+        positionToSectionMap = SectionIndexBuilder.buildPositionForSectionMap(characters);
+        sectionForPositionMap = SectionIndexBuilder.buildSectionForPositionMap(characters);
+
     }
 
     @Override
@@ -36,6 +47,7 @@ public class CharacterAdapter extends BaseAdapter {
         return index;
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
     public View getView(int index, View view, ViewGroup viewGroup) {
         if (view == null) {
@@ -44,20 +56,42 @@ public class CharacterAdapter extends BaseAdapter {
 
             ImageView characterPoster = (ImageView) view.findViewById(R.id.character_poster);
             TextView characterName = (TextView) view.findViewById(R.id.character_name);
-            TextView characterDetail = (TextView) view.findViewById(R.id.character_detail);
-
-            view.setTag(new ViewHolder(characterPoster, characterName, characterDetail));
+            TextView categoryDetail = (TextView) view.findViewById(R.id.categoryDetail);
+            TextView popularityDetail = (TextView) view.findViewById(R.id.popularityDetail);
+            TextView descriptionDetail = (TextView) view.findViewById(R.id.descriptionDetail);
+            ViewHolder viewHolder = new ViewHolder(characterPoster, characterName, categoryDetail, popularityDetail, descriptionDetail);
+            view.setTag(viewHolder);
         }
 
         Drawable drawable = Util.getDrawable(context, characters[index].getPosterPath().substring(0, characters[index].getPosterPath().length()-4).toLowerCase());
 
-        ViewHolder holder = (ViewHolder)view.getTag();
-
-        holder.getCharacterPoster().setImageDrawable(drawable);
-        holder.getCharacterName().setText(characters[index].getName());
-        holder.getCharacterDetail().setText(String.format("%s - Directed by: %s", characters[index].getCategory(), characters[index].getDescription()));
-
+        ViewHolder viewHolder = (ViewHolder)view.getTag();
+        viewHolder.getCharacterPoster().setImageDrawable(drawable);
+        viewHolder.getCharacterName().setText(characters[index].getName());
+        //Locale locale = new Locale("pt", "BR");
+        String lblCat = context.getResources().getString(R.string.lblCategory);
+        String lblDes = context.getResources().getString(R.string.lblDescription);
+        String lblPop = context.getResources().getString(R.string.lblPopularity);
+        viewHolder.getCategoryDetail().setText(String.format("%s: %s", lblCat, characters[index].getCategory().name()));
+        viewHolder.getDescriptionDetail().setText(String.format("%s: %s", lblDes, characters[index].getDescription()));
+        viewHolder.getPopularityDetail().setText(String.format("%s: %.1f", lblPop, characters[index].getPopularity()));
 
         return view;
+    }
+
+
+    @Override
+    public Object[] getSections() {
+        return sectionHeaders;
+    }
+
+    @Override
+    public int getPositionForSection(int i) {
+        return positionToSectionMap.get(i).intValue();
+    }
+
+    @Override
+    public int getSectionForPosition(int i) {
+        return sectionForPositionMap.get(i).intValue();
     }
 }

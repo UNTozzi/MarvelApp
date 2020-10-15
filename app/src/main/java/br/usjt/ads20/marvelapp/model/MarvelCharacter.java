@@ -1,8 +1,8 @@
 package br.usjt.ads20.marvelapp.model;
 
-import java.util.Date;
+import java.io.Serializable;
 
-public class Character {
+public class MarvelCharacter implements Serializable {
     private int id;
     private String Name;
     private String Description;
