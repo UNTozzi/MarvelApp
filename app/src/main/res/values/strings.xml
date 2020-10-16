@@ -2,7 +2,6 @@
     <string name="app_name">MarvelApp</string>
     <string name="searchCharacter">Search Character</string>
     <string name="button_search">Search</string>
-    <string name="lblCategory">Category</string>
     <string name="lblDescription">Description</string>
-    <string name="lblPopularity">Popularity</string>
+    <string name="networkError">Network problem</string>
 </resources>

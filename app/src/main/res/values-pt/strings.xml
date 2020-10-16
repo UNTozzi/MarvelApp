@@ -2,7 +2,6 @@
     <string name="app_name">MarvelApp</string>
     <string name="searchCharacter">Nome do Personagem</string>
     <string name="button_search">Buscar</string>
-    <string name="lblCategory">Categoria</string>
     <string name="lblDescription">Descrição</string>
-    <string name="lblPopularity">Popularidade</string>
+    <string name="networkError">Problema de rede</string>
 </resources>

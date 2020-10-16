@@ -2,7 +2,6 @@ package br.usjt.ads20.marvelapp;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,16 +13,19 @@ import android.widget.TextView;
 import java.util.Hashtable;
 
 import br.usjt.ads20.marvelapp.model.MarvelCharacter;
+import br.usjt.ads20.marvelapp.model.Poster;
 
 public class CharacterAdapter extends BaseAdapter implements SectionIndexer {
     private MarvelCharacter[] characters;
+    private Poster[] images;
     private Context context;
     private Object[] sectionHeaders;
     private Hashtable<Integer, Integer> sectionForPositionMap;
     private Hashtable<Integer, Integer> positionToSectionMap;
 
-    public CharacterAdapter(Context context, MarvelCharacter[] characters) {
+    public CharacterAdapter(Context context, MarvelCharacter[] characters, Poster[] images) {
         this.characters = characters;
+        this.images = images;
         this.context = context;
         sectionHeaders = SectionIndexBuilder.buildSectionHeaders(characters);
         positionToSectionMap = SectionIndexBuilder.buildPositionForSectionMap(characters);
@@ -56,25 +58,17 @@ public class CharacterAdapter extends BaseAdapter implements SectionIndexer {
 
             ImageView characterPoster = (ImageView) view.findViewById(R.id.character_poster);
             TextView characterName = (TextView) view.findViewById(R.id.character_name);
-            TextView categoryDetail = (TextView) view.findViewById(R.id.categoryDetail);
-            TextView popularityDetail = (TextView) view.findViewById(R.id.popularityDetail);
             TextView descriptionDetail = (TextView) view.findViewById(R.id.descriptionDetail);
-            ViewHolder viewHolder = new ViewHolder(characterPoster, characterName, categoryDetail, popularityDetail, descriptionDetail);
+            ViewHolder viewHolder = new ViewHolder(characterPoster, characterName, descriptionDetail);
             view.setTag(viewHolder);
         }
 
-        Drawable drawable = Util.getDrawable(context, characters[index].getPosterPath().substring(0, characters[index].getPosterPath().length()-4).toLowerCase());
-
         ViewHolder viewHolder = (ViewHolder)view.getTag();
-        viewHolder.getCharacterPoster().setImageDrawable(drawable);
+        viewHolder.getCharacterPoster().setImageBitmap(images[index].getPoster());
         viewHolder.getCharacterName().setText(characters[index].getName());
         //Locale locale = new Locale("pt", "BR");
-        String lblCat = context.getResources().getString(R.string.lblCategory);
         String lblDes = context.getResources().getString(R.string.lblDescription);
-        String lblPop = context.getResources().getString(R.string.lblPopularity);
-        viewHolder.getCategoryDetail().setText(String.format("%s: %s", lblCat, characters[index].getCategory().name()));
         viewHolder.getDescriptionDetail().setText(String.format("%s: %s", lblDes, characters[index].getDescription()));
-        viewHolder.getPopularityDetail().setText(String.format("%s: %.1f", lblPop, characters[index].getPopularity()));
 
         return view;
     }

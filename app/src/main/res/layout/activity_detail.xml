@@ -9,17 +9,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:context=".CharacterDetailActivity">
-
-        <TextView
-            android:id="@+id/txtPopularity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/lblPopularity"
-            app:layout_constraintStart_toEndOf="@+id/lblPopularity"
-            tools:text="Popularity (%)" />
 
         <TextView
             android:id="@+id/txtName"
@@ -36,7 +27,7 @@
             tools:text="Character Name" />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/backdropView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -46,27 +37,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtName"
-            app:srcCompat="@drawable/captainmarvelbackdrop" />
+            app:srcCompat="@drawable/nobackdrop" />
 
-        <TextView
-            android:id="@+id/lblCategory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="@string/lblCategory"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/guideline3"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-        <TextView
-            android:id="@+id/lblPopularity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/lblPopularity"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/guideline3"
-            app:layout_constraintTop_toBottomOf="@+id/lblCategory" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline3"
@@ -76,24 +48,26 @@
             app:layout_constraintGuide_begin="16dp" />
 
         <TextView
-            android:id="@+id/txtCategory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/lblCategory"
-            app:layout_constraintStart_toEndOf="@+id/lblCategory"
-            tools:text="Category" />
-
-        <TextView
             android:id="@+id/txtDescription"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="20dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/lblPopularity"
-            app:layout_constraintTop_toBottomOf="@+id/lblPopularity"
-            tools:text="Movie description" />
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toBottomOf="@+id/backdropView"
+            tools:text="Character description" />
+
+        <ProgressBar
+            android:id="@+id/progressBarDetail"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="invisible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
