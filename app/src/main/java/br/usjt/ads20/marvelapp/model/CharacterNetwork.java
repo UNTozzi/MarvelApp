@@ -37,7 +37,7 @@ public class CharacterNetwork {
         while(hashtext.length() < 32 ){
             hashtext = "0"+hashtext;
         }
-        return "ts=" + timeStamp + "&apikey=1ace8dd841b201fae4e4009486c253a2&hash=" + hashtext + "&limit=10";
+        return "ts=" + timeStamp + "&apikey=1ace8dd841b201fae4e4009486c253a2&hash=" + hashtext + "&limit=20";
     }
     public static ArrayList<MarvelCharacter> searchCharacters(String url) throws IOException, NoSuchAlgorithmException {
         ArrayList<MarvelCharacter> characters = new ArrayList<>();

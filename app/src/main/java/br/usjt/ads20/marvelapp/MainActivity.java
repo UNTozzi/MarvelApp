@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
+import br.usjt.ads20.marvelapp.model.CharacterDB;
 import br.usjt.ads20.marvelapp.model.Data;
 import br.usjt.ads20.marvelapp.model.MarvelCharacter;
 import br.usjt.ads20.marvelapp.model.CharacterNetwork;
@@ -48,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
             String msg = this.getResources().getString(R.string.networkError);
             Toast toast = Toast.makeText(this, msg, Toast.LENGTH_LONG);
             toast.show();
+            progressBar.setVisibility(View.VISIBLE);
+            new LoadCharacterDB().execute();
         }
     }
 
@@ -69,6 +72,9 @@ public class MainActivity extends AppCompatActivity {
                     images.add(p);
                 }
                 Data.setImages(images);
+                CharacterDB characterDB = new CharacterDB(context);
+                characterDB.saveCharacters(characters);
+                characterDB.updatePosters(images);
             } catch (IOException | NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
@@ -77,11 +83,44 @@ public class MainActivity extends AppCompatActivity {
 
         protected void onPostExecute(ArrayList<MarvelCharacter> characters){
             Intent intent = new Intent(context, ListCharactersActivity.class);
-            String nome = txtName.getText().toString();
-            intent.putExtra(NAME, nome);
+            CharacterDB db = new CharacterDB(context);
+            characters = db.searchCharacters();
+
+            String name = txtName.getText().toString();
+            intent.putExtra(NAME, name);
             intent.putExtra(CHARACTERS, characters);
             progressBar.setVisibility(View.INVISIBLE);
             startActivity(intent);
         }
     }
+
+    private class LoadCharacterDB extends AsyncTask<String, Void, ArrayList<MarvelCharacter>> {
+
+        @Override
+        protected ArrayList<MarvelCharacter> doInBackground(String... strings) {
+            CharacterDB db = new CharacterDB(context);
+
+            ArrayList<MarvelCharacter> characters = db.searchCharacters();
+            ArrayList<Poster> posters = db.searchPosters();
+            Data.setImages(posters);
+
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<MarvelCharacter> characters) {
+            Intent intent = new Intent(context, ListCharactersActivity.class);
+
+            CharacterDB db = new CharacterDB(context);
+            characters = db.searchCharacters();
+
+            String name = txtName.getText().toString();
+            intent.putExtra(NAME, name);
+            intent.putExtra(CHARACTERS, characters);
+            progressBar.setVisibility(View.INVISIBLE);
+            startActivity(intent);
+        }
+    }
+
 }
